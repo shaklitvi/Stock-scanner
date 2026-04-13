@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>סורק מניות - טריידר פרו 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+```
+    :root {
+        --bg-main: #f5f7fa;
+        --bg-card: #ffffff;
+        --bg-secondary: #e8ecf1;
+        --primary: #5b8def;
+        --primary-light: #7ba5f5;
+        --primary-dark: #4a75db;
+        --success: #4caf50;
+        --success-light: #81c784;
+        --danger: #f44336;
+        --danger-light: #e57373;
+        --warning: #ff9800;
+        --warning-light: #ffb74d;
+        --text-dark: #1a202c;
+        --text-medium: #4a5568;
+        --text-light: #718096;
+        --border: #e2e8f0;
+        --shadow: rgba(0, 0, 0, 0.08);
+        --shadow-hover: rgba(0, 0, 0, 0.12);
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        background: var(--bg-main);
+        color: var(--text-dark);
+        min-height: 100vh;
+        padding-bottom: 85px;
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 16px;
+    }
+
+    /* Header */
+    .app-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        padding: 24px 20px;
+        border-radius: 0 0 24px 24px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(91, 141, 239, 0.25);
+    }
+
+    .app-header h1 {
+        font-size: 1.6em;
+        margin-bottom: 6px;
+        color: white;
+        font-weight: 700;
+    }
+
+    .app-header p {
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 0.9em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .badge {
+        background: var(--warning);
+        color: var(--text-dark);
+        padding: 4px 12px;
+        border-radius: 16px;
+        font-size: 0.8em;
+        font-weight: 700;
+    }
+
+    /* Stats */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        background: var(--bg-card);
+        padding: 16px;
+        border-radius: 16px;
+        text-align: center;
+        border: 1px solid var(--border);
+        box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .stat-value {
+        font-size: 1.8em;
+        font-weight: 800;
+        color: var(--primary);
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .stat-label {
+        color: var(--text-light);
+        font-size: 0.8em;
+        font-weight: 600;
+    }
+
+    /* Card */
+    .card {
+        background: var(--bg-card);
+        padding: 18px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+        border: 1px solid var(--border);
+        box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    /* Scan Button */
+    .scan-btn {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        border: none;
+        border-radius: 14px;
+        font-size: 1.1em;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(91, 141, 239, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .scan-btn:active {
+        transform: scale(0.98);
+    }
+
+    .scan-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    /* Filters */
+    .filters {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 10px 0;
+        margin-bottom: 16px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-btn {
+        padding: 10px 18px;
+        border-radius: 20px;
+        border: 2px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text-medium);
+        cursor: pointer;
+        white-space: nowrap;
+        font-size: 0.85em;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+    .filter-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        box-shadow: 0 2px 8px rgba(91, 141, 239, 0.3);
+    }
+
+    /* Stocks Grid */
+    .stocks-grid {
+        display: grid;
+        gap: 14px;
+    }
+
+    .stock-card {
+        background: var(--bg-card);
+        border-radius: 16px;
+        padding: 16px;
+        border: 1px solid var(--border);
+        box-shadow: 0 2px 8px var(--shadow);
+        animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .stock-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+    }
+
+    .stock-info h3 {
+        font-size: 1.25em;
+        color: var(--text-dark);
+        margin-bottom: 4px;
+        font-weight: 700;
+    }
+
+    .stock-info .name {
+        color: var(--text-light);
+        font-size: 0.85em;
+        margin-bottom: 4px;
+    }
+
+    .stock-info .sector {
+        color: var(--primary);
+        font-size: 0.75em;
+        font-weight: 600;
+    }
+
+    .stock-price {
+        text-align: left;
+    }
+
+    .price {
+        font-size: 1.4em;
+        font-weight: 800;
+        display: block;
+        margin-bottom: 4px;
+        color: var(--text-dark);
+    }
+
+    .change {
+        padding: 5px 10px;
+        border-radius: 8px;
+        font-size: 0.8em;
+        font-weight: 700;
+    }
+
+    .change.up {
+        background: rgba(76, 175, 80, 0.15);
+        color: #2e7d32;
+    }
+
+    .change.down {
+        background: rgba(244, 67, 54, 0.15);
+        color: #c62828;
+    }
+
+    /* Signal */
+    .signal {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px;
+        border-radius: 12px;
+        margin-top: 12px;
+    }
+
+    .signal.buy {
+        background: rgba(76, 175, 80, 0.12);
+        border-right: 4px solid var(--success);
+    }
+
+    .signal.hold {
+        background: rgba(255, 152, 0, 0.12);
+        border-right: 4px solid var(--warning);
+    }
+
+    .signal-icon {
+        font-size: 1.4em;
+    }
+
+    .signal-text {
+        flex: 1;
+    }
+
+    .signal-title {
+        font-weight: 700;
+        display: block;
+        margin-bottom: 3px;
+        color: var(--text-dark);
+        font-size: 0.9em;
+    }
+
+    .signal-desc {
+        font-size: 0.8em;
+        color: var(--text-medium);
+    }
+
+    /* AI Analysis */
+    .ai-box {
+        background: linear-gradient(135deg, rgba(91, 141, 239, 0.06), rgba(123, 165, 245, 0.06));
+        padding: 12px;
+        border-radius: 12px;
+        margin-top: 12px;
+        border: 1px solid rgba(91, 141, 239, 0.15);
+    }
+
+    .ai-title {
+        font-weight: 700;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.85em;
+        color: var(--text-dark);
+    }
+
+    .ai-content {
+        font-size: 0.8em;
+        line-height: 1.5;
+        color: var(--text-medium);
+    }
+
+    /* Points Grid */
+    .points-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .point-box {
+        text-align: center;
+        padding: 10px 8px;
+        background: var(--bg-secondary);
+        border-radius: 10px;
+    }
+
+    .point-label {
+        color: var(--text-light);
+        display: block;
+        margin-bottom: 4px;
+        font-size: 0.75em;
+        font-weight: 600;
+    }
+
+    .point-value {
+        font-weight: 800;
+        font-size: 0.85em;
+    }
+
+    .point-value.entry {
+        color: var(--success);
+    }
+
+    .point-value.target {
+        color: var(--primary);
+    }
+
+    .point-value.stop {
+        color: var(--danger);
+    }
+
+    /* Trade Actions */
+    .trade-actions {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .trade-btn {
+        padding: 11px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 0.85em;
+        transition: all 0.2s;
+    }
+
+    .trade-btn.buy {
+        background: var(--success);
+        color: white;
+    }
+
+    .trade-btn.sell {
+        background: var(--danger);
+        color: white;
+    }
+
+    .trade-btn.view {
+        background: var(--bg-secondary);
+        color: var(--primary);
+        border: 2px solid var(--border);
+    }
+
+    .trade-btn:active {
+        transform: scale(0.96);
+    }
+
+    /* Portfolio */
+    .portfolio-header {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        padding: 24px 20px;
+        border-radius: 18px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(91, 141, 239, 0.25);
+        text-align: center;
+    }
+
+    .balance-label {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.85em;
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
+
+    .balance-value {
+        font-size: 2.2em;
+        font-weight: 800;
+        color: white;
+    }
+
+    .profit-loss {
+        font-size: 1em;
+        margin-top: 8px;
+        font-weight: 700;
+    }
+
+    .profit-loss.positive {
+        color: var(--success-light);
+    }
+
+    .profit-loss.negative {
+        color: var(--danger-light);
+    }
+
+    /* Position Card */
+    .position-card {
+        background: var(--bg-card);
+        padding: 14px;
+        border-radius: 14px;
+        margin-bottom: 12px;
+        border: 1px solid var(--border);
+        box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .position-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .position-details {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        font-size: 0.8em;
+    }
+
+    .detail-box {
+        text-align: center;
+        padding: 8px;
+        background: var(--bg-secondary);
+        border-radius: 8px;
+    }
+
+    .detail-label {
+        color: var(--text-light);
+        display: block;
+        margin-bottom: 3px;
+        font-size: 0.85em;
+    }
+
+    .detail-value {
+        font-weight: 800;
+        color: var(--text-dark);
+    }
+
+    /* Achievement Card */
+    .achievement-card {
+        background: var(--bg-card);
+        padding: 14px;
+        border-radius: 14px;
+        margin-bottom: 12px;
+        border: 1px solid var(--border);
+        box-shadow: 0 2px 8px var(--shadow);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .achievement-card.unlocked {
+        border-color: var(--primary);
+        background: linear-gradient(135deg, rgba(91, 141, 239, 0.04), rgba(123, 165, 245, 0.04));
+    }
+
+    .achievement-icon {
+        font-size: 2.2em;
+        filter: grayscale(100%);
+        opacity: 0.4;
+    }
+
+    .achievement-card.unlocked .achievement-icon {
+        filter: grayscale(0%);
+        opacity: 1;
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.08); }
+    }
+
+    .achievement-info {
+        flex: 1;
+    }
+
+    .achievement-title {
+        font-weight: 700;
+        margin-bottom: 4px;
+        color: var(--text-dark);
+        font-size: 0.9em;
+    }
+
+    .achievement-desc {
+        font-size: 0.8em;
+        color: var(--text-light);
+    }
+
+    .progress-bar {
+        height: 7px;
+        background: var(--bg-secondary);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 8px;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--primary-light));
+        transition: width 0.5s ease;
+        border-radius: 10px;
+    }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.65);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .modal.active {
+        display: flex;
+    }
+
+    .modal-content {
+        background: var(--bg-card);
+        padding: 28px;
+        border-radius: 20px;
+        max-width: 480px;
+        width: 100%;
+        border: 3px solid var(--warning);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        animation: modalSlide 0.4s ease-out;
+    }
+
+    @keyframes modalSlide {
+        from {
+            opacity: 0;
+            transform: scale(0.85);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .modal-header {
+        text-align: center;
+        margin-bottom: 18px;
+    }
+
+    .modal-icon {
+        font-size: 3.5em;
+        margin-bottom: 10px;
+    }
+
+    .modal-title {
+        font-size: 1.4em;
+        color: var(--warning);
+        margin-bottom: 10px;
+        font-weight: 800;
+    }
+
+    .modal-desc {
+        color: var(--text-medium);
+        line-height: 1.6;
+        margin-bottom: 18px;
+        font-size: 0.9em;
+    }
+
+    .modal-stats {
+        background: var(--bg-secondary);
+        padding: 14px;
+        border-radius: 12px;
+        margin-bottom: 18px;
+    }
+
+    .modal-stat {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 0.9em;
+    }
+
+    .modal-actions {
+        display: grid;
+        gap: 10px;
+    }
+
+    .modal-btn {
+        padding: 15px;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 0.95em;
+    }
+
+    .modal-btn.primary {
+        background: linear-gradient(135deg, var(--warning), var(--warning-light));
+        color: var(--text-dark);
+    }
+
+    .modal-btn.secondary {
+        background: var(--bg-secondary);
+        color: var(--text-dark);
+    }
+
+    /* Platform Grid */
+    .platform-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .platform-card {
+        background: var(--bg-card);
+        padding: 16px;
+        border-radius: 14px;
+        text-align: center;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        box-shadow: 0 2px 8px var(--shadow);
+        text-decoration: none;
+        color: var(--text-dark);
+        transition: all 0.3s;
+    }
+
+    .platform-card:active {
+        transform: scale(0.97);
+    }
+
+    .platform-icon {
+        font-size: 2em;
+        margin-bottom: 8px;
+    }
+
+    .platform-name {
+        font-weight: 700;
+        margin-bottom: 4px;
+        font-size: 0.9em;
+    }
+
+    .platform-desc {
+        font-size: 0.7em;
+        color: var(--text-light);
+    }
+
+    /* Alert Box */
+    .alert-box {
+        padding: 14px;
+        background: rgba(255, 152, 0, 0.12);
+        border-radius: 12px;
+        border-right: 4px solid var(--warning);
+        margin-top: 18px;
+    }
+
+    .alert-title {
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: var(--text-dark);
+        font-size: 0.9em;
+    }
+
+    .alert-content {
+        font-size: 0.8em;
+        color: var(--text-medium);
+        line-height: 1.6;
+    }
+
+    /* Loading */
+    .loading {
+        text-align: center;
+        padding: 40px;
+    }
+
+    .loader {
+        width: 45px;
+        height: 45px;
+        border: 4px solid var(--bg-secondary);
+        border-top: 4px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 14px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: var(--text-light);
+    }
+
+    .empty-icon {
+        font-size: 3em;
+        margin-bottom: 10px;
+        opacity: 0.5;
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--bg-card);
+        border-top: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        z-index: 100;
+        box-shadow: 0 -2px 10px var(--shadow);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .nav-item {
+        padding: 12px 8px;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        color: var(--text-light);
+        transition: all 0.3s;
+    }
+
+    .nav-item.active {
+        color: var(--primary);
+        background: rgba(91, 141, 239, 0.08);
+    }
+
+    .nav-icon {
+        font-size: 1.4em;
+        display: block;
+        margin-bottom: 3px;
+    }
+
+    .nav-label {
+        font-size: 0.65em;
+        font-weight: 700;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <div class="app-header">
+            <h1>🚀 סורק מניות - טריידר פרו</h1>
+            <p>
+                <span>ניתוח AI בזמן אמת</span>
+                <span class="badge">דמו</span>
+            </p>
+        </div>
+
+```
+    <!-- Scanner Tab -->
+    <div id="scannerTab" class="tab-content active">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-value" id="scannedCount">0</span>
+                <span class="stat-label">נסרקו</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="signalsCount">0</span>
+                <span class="stat-label">אותות</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="winRate">0%</span>
+                <span class="stat-label">הצלחה</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <button class="scan-btn" id="scanBtn" onclick="startScan()">
+                🔍 התחל סריקה
+            </button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">הכל</button>
+            <button class="filter-btn" data-filter="buy">🟢 קנייה</button>
+            <button class="filter-btn" data-filter="hold">🟡 המתנה</button>
+            <button class="filter-btn" data-filter="ai">🤖 AI</button>
+            <button class="filter-btn" data-filter="tech">💻 טק</button>
+            <button class="filter-btn" data-filter="beginner">⭐ מתחילים</button>
+        </div>
+
+        <div class="stocks-grid" id="stocksContainer">
+            <div class="empty-state">
+                <div class="empty-icon">📊</div>
+                <p>לחץ "התחל סריקה" למצוא מניות</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Tab -->
+    <div id="portfolioTab" class="tab-content">
+        <div class="portfolio-header">
+            <div class="balance-label">יתרת חשבון דמו</div>
+            <div class="balance-value" id="portfolioBalance">$100,000</div>
+            <div class="profit-loss positive" id="profitLoss">+$0 (0%)</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-value" id="totalTrades">0</span>
+                <span class="stat-label">עסקאות</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="winningTrades">0</span>
+                <span class="stat-label">רווחיות</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="portfolioWinRate">0%</span>
+                <span class="stat-label">הצלחה</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-bottom: 14px; font-size: 1.1em;">📈 פוזיציות פתוחות</h3>
+            <div id="positionsContainer">
+                <div class="empty-state">
+                    <div class="empty-icon">💼</div>
+                    <p>אין פוזיציות פתוחות</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievements Tab -->
+    <div id="achievementsTab" class="tab-content">
+        <div class="card">
+            <h3 style="margin-bottom: 14px; font-size: 1.1em;">🏆 הישגים</h3>
+            <div id="achievementsContainer"></div>
+        </div>
+
+        <div class="card" style="margin-top: 16px;">
+            <h3 style="margin-bottom: 12px; font-size: 1.1em;">📚 מעבר לחשבון אמיתי</h3>
+            <div style="color: var(--text-medium); line-height: 1.6; margin-bottom: 14px; font-size: 0.85em;">
+                <p style="margin-bottom: 8px;">דרישות:</p>
+                <ul style="margin-right: 18px; line-height: 1.8;">
+                    <li>✓ 7 ימי מסחר</li>
+                    <li>✓ 60%+ הצלחה</li>
+                    <li>✓ 20+ עסקאות</li>
+                </ul>
+            </div>
+            <div id="progressToReal"></div>
+        </div>
+    </div>
+
+    <!-- Platforms Tab -->
+    <div id="platformsTab" class="tab-content">
+        <div class="card">
+            <h3 style="margin-bottom: 12px; font-size: 1.1em;">🏦 פלטפורמות מסחר</h3>
+            <p style="color: var(--text-medium); margin-bottom: 16px; line-height: 1.6; font-size: 0.85em;">
+                אחרי הצלחה בדמו, עבור לפלטפורמה אמיתית
+            </p>
+            
+            <div class="platform-grid">
+                <a href="https://www.interactivebrokers.com" target="_blank" class="platform-card">
+                    <div class="platform-icon">🏦</div>
+                    <div class="platform-name">Interactive Brokers</div>
+                    <div class="platform-desc">מקצועי</div>
+                </a>
+                <a href="https://www.etoro.com" target="_blank" class="platform-card">
+                    <div class="platform-icon">📱</div>
+                    <div class="platform-name">eToro</div>
+                    <div class="platform-desc">למתחילים</div>
+                </a>
+                <a href="https://www.webull.com" target="_blank" class="platform-card">
+                    <div class="platform-icon">📊</div>
+                    <div class="platform-name">Webull</div>
+                    <div class="platform-desc">ללא עמלות</div>
+                </a>
+                <a href="https://www.tradingview.com" target="_blank" class="platform-card">
+                    <div class="platform-icon">📈</div>
+                    <div class="platform-name">TradingView</div>
+                    <div class="platform-desc">גרפים</div>
+                </a>
+            </div>
+
+            <div class="alert-box">
+                <div class="alert-title">⚠️ חשוב</div>
+                <div class="alert-content">
+                    מסחר במניות כרוך בסיכון. התחל בסכומים קטנים והשתמש בסטופ לוס.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="promotionModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-icon">🎉</div>
+            <div class="modal-title">מזל טוב!</div>
+        </div>
+        <div class="modal-desc">
+            השלמת את תקופת הדמו בהצלחה! אתה מוכן לחשבון אמיתי.
+        </div>
+        <div class="modal-stats">
+            <div class="modal-stat">
+                <span>ימים:</span>
+                <span id="modalDays" style="font-weight: 800;">-</span>
+            </div>
+            <div class="modal-stat">
+                <span>הצלחה:</span>
+                <span id="modalWinRate" style="font-weight: 800;">-</span>
+            </div>
+            <div class="modal-stat">
+                <span>עסקאות:</span>
+                <span id="modalTrades" style="font-weight: 800;">-</span>
+            </div>
+            <div class="modal-stat">
+                <span>רווח:</span>
+                <span id="modalProfit" style="font-weight: 800;">-</span>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="modal-btn primary" onclick="goToRealPlatform()">
+                🚀 עבור לפלטפורמה
+            </button>
+            <button class="modal-btn secondary" onclick="closePromotion()">
+                המשך בדמו
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Nav -->
+<div class="bottom-nav">
+    <button class="nav-item active" onclick="switchTab('scanner')">
+        <span class="nav-icon">🔍</span>
+        <span class="nav-label">סורק</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('portfolio')">
+        <span class="nav-icon">💼</span>
+        <span class="nav-label">תיק</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('achievements')">
+        <span class="nav-icon">🏆</span>
+        <span class="nav-label">הישגים</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('platforms')">
+        <span class="nav-icon">🏦</span>
+        <span class="nav-label">מסחר</span>
+    </button>
+</div>
+
+<script>
+    const stocksDB = [
+        {
+            symbol: "NVDA", name: "NVIDIA", price: 892.45, change: 3.24,
+            sector: "AI & Semiconductors", signal: "buy", confidence: 88,
+            analysis: "NVIDIA מובילה את מהפכת ה-AI עם שבבי H100 ו-B200.",
+            entryPoint: "850-870", exitPoint: "950+", stopLoss: "820",
+            tags: ["ai", "tech", "beginner"]
+        },
+        {
+            symbol: "MSFT", name: "Microsoft", price: 428.90, change: 1.85,
+            sector: "Cloud & AI", signal: "buy", confidence: 92,
+            analysis: "מיקרוסופט משלבת AI בכל המוצרים דרך Copilot.",
+            entryPoint: "410-425", exitPoint: "460+", stopLoss: "395",
+            tags: ["ai", "tech", "beginner"]
+        },
+        {
+            symbol: "GOOGL", name: "Google", price: 142.65, change: 2.48,
+            sector: "Search & AI", signal: "buy", confidence: 87,
+            analysis: "Gemini AI מתחרה חזק של ChatGPT.",
+            entryPoint: "138-142", exitPoint: "155+", stopLoss: "135",
+            tags: ["ai", "tech", "beginner"]
+        },
+        {
+            symbol: "AAPL", name: "Apple", price: 178.52, change: 1.12,
+            sector: "Consumer Tech", signal: "buy", confidence: 85,
+            analysis: "אייפון 16 עם AI ו-Vision Pro.",
+            entryPoint: "172-176", exitPoint: "190+", stopLoss: "168",
+            tags: ["tech", "beginner"]
+        },
+        {
+            symbol: "META", name: "Meta", price: 478.23, change: 2.67,
+            sector: "Social & AI", signal: "buy", confidence: 82,
+            analysis: "Llama 3.1 מוביל Open Source AI.",
+            entryPoint: "460-472", exitPoint: "510+", stopLoss: "450",
+            tags: ["ai", "tech"]
+        },
+        {
+            symbol: "TSLA", name: "Tesla", price: 248.92, change: -2.15,
+            sector: "EVs", signal: "hold", confidence: 65,
+            analysis: "FSD משתפר אבל תחרות גוברת.",
+            entryPoint: "235-240", exitPoint: "280+", stopLoss: "225",
+            tags: ["tech"]
+        },
+        {
+            symbol: "AMD", name: "AMD", price: 186.45, change: 4.12,
+            sector: "Semiconductors", signal: "buy", confidence: 79,
+            analysis: "MI300 מתחרה ב-NVIDIA.",
+            entryPoint: "178-183", exitPoint: "210+", stopLoss: "172",
+            tags: ["ai", "tech"]
+        },
+        {
+            symbol: "VOO", name: "S&P 500 ETF", price: 485.30, change: 0.85,
+            sector: "Index", signal: "buy", confidence: 95,
+            analysis: "הבחירה הבטוחה - 500 חברות.",
+            entryPoint: "כל מחיר", exitPoint: "ארוך טווח", stopLoss: "לא רלוונטי",
+            tags: ["beginner"]
+        }
+    ];
+
+    let userData = {
+        balance: 100000,
+        initialBalance: 100000,
+        positions: [],
+        trades: [],
+        tradingDays: [],
+        achievements: [
+            { id: 'first', title: 'עסקה ראשונה', desc: 'ביצעת עסקה ראשונה', icon: '🎯', unlocked: false, progress: 0, target: 1 },
+            { id: 'five', title: 'מתחיל', desc: '5 עסקאות', icon: '📈', unlocked: false, progress: 0, target: 5 },
+            { id: 'profit', title: 'יום רווחי', desc: 'יום עם רווח', icon: '💰', unlocked: false, progress: 0, target: 1 },
+            { id: 'week', title: 'שבוע שלם', desc: '7 ימי מסחר', icon: '📅', unlocked: false, progress: 0, target: 7 },
+            { id: 'twenty', title: 'מנוסה', desc: '20 עסקאות', icon: '⭐', unlocked: false, progress: 0, target: 20 },
+            { id: 'ready', title: 'מוכן!', desc: '60% הצלחה ב-20+ עסקאות', icon: '🚀', unlocked: false, progress: 0, target: 100 }
+        ]
+    };
+
+    let currentFilter = 'all';
+    let displayedStocks = [];
+
+    function loadUserData() {
+        const saved = localStorage.getItem('traderProData');
+        if (saved) {
+            userData = { ...userData, ...JSON.parse(saved) };
+            updatePortfolioDisplay();
+            renderAchievements();
+        }
+    }
+
+    function saveUserData() {
+        localStorage.setItem('traderProData', JSON.stringify(userData));
+    }
+
+    loadUserData();
+
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        
+        document.getElementById(tab + 'Tab').classList.add('active');
+        event.target.closest('.nav-item').classList.add('active');
+
+        if (tab === 'achievements') renderAchievements();
+        else if (tab === 'portfolio') updatePortfolioDisplay();
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentFilter = this.dataset.filter;
+            if (displayedStocks.length > 0) displayStocks(displayedStocks);
+        });
+    });
+
+    function startScan() {
+        const scanBtn = document.getElementById('scanBtn');
+        const container = document.getElementById('stocksContainer');
+        
+        scanBtn.disabled = true;
+        scanBtn.innerHTML = '⏳ סורק...';
+        
+        container.innerHTML = `
+            <div class="loading">
+                <div class="loader"></div>
+                <p>מנתח 2,847 מניות...</p>
+            </div>
+        `;
+
+        let count = 0;
+        const interval = setInterval(() => {
+            count += 127;
+            document.getElementById('scannedCount').textContent = Math.min(count, 2847);
+            
+            if (count >= 2847) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    displayedStocks = [...stocksDB];
+                    displayStocks(displayedStocks);
+                    updateScanStats();
+                    scanBtn.disabled = false;
+                    scanBtn.innerHTML = '🔄 סרוק שוב';
+                }, 500);
+            }
+        }, 80);
+    }
+
+    function displayStocks(stocks) {
+        let filtered = stocks;
+        
+        if (currentFilter !== 'all') {
+            if (currentFilter === 'buy' || currentFilter === 'hold') {
+                filtered = stocks.filter(s => s.signal === currentFilter);
+            } else {
+                filtered = stocks.filter(s => s.tags.includes(currentFilter));
+            }
+        }
+
+        const container = document.getElementById('stocksContainer');
+        
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div><p>אין תוצאות</p></div>';
+            return;
+        }
+
+        container.innerHTML = filtered.map(stock => createStockCard(stock)).join('');
+    }
+
+    function createStockCard(stock) {
+        const changeClass = stock.change >= 0 ? 'up' : 'down';
+        const changeSymbol = stock.change >= 0 ? '▲' : '▼';
+        
+        let signalHTML = '';
+        if (stock.signal === 'buy') {
+            signalHTML = `
+                <div class="signal buy">
+                    <span class="signal-icon">🟢</span>
+                    <div class="signal-text">
+                        <span class="signal-title">קנייה</span>
+                        <span class="signal-desc">כניסה: ${stock.entryPoint}</span>
+                    </div>
+                </div>
+            `;
+        } else if (stock.signal === 'hold') {
+            signalHTML = `
+                <div class="signal hold">
+                    <span class="signal-icon">🟡</span>
+                    <div class="signal-text">
+                        <span class="signal-title">המתנה</span>
+                        <span class="signal-desc">כניסה: ${stock.entryPoint}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        return `
+            <div class="stock-card">
+                <div class="stock-header">
+                    <div class="stock-info">
+                        <h3>${stock.symbol}</h3>
+                        <div class="name">${stock.name}</div>
+                        <div class="sector">${stock.sector}</div>
+                    </div>
+                    <div class="stock-price">
+                        <span class="price">$${stock.price.toFixed(2)}</span>
+                        <span class="change ${changeClass}">${changeSymbol} ${Math.abs(stock.change).toFixed(2)}%</span>
+                    </div>
+                </div>
+                ${signalHTML}
+                <div class="ai-box">
+                    <div class="ai-title"><span>🤖</span><span>ניתוח AI</span></div>
+                    <div class="ai-content">${stock.analysis}</div>
+                </div>
+                <div class="points-grid">
+                    <div class="point-box">
+                        <div class="point-label">כניסה</div>
+                        <div class="point-value entry">${stock.entryPoint}</div>
+                    </div>
+                    <div class="point-box">
+                        <div class="point-label">יעד</div>
+                        <div class="point-value target">${stock.exitPoint}</div>
+                    </div>
+                    <div class="point-box">
+                        <div class="point-label">סטופ</div>
+                        <div class="point-value stop">${stock.stopLoss}</div>
+                    </div>
+                </div>
+                <div class="trade-actions">
+                    <button class="trade-btn buy" onclick="buyStock('${stock.symbol}', ${stock.price})">קנה</button>
+                    <button class="trade-btn sell" onclick="sellStock('${stock.symbol}')">מכור</button>
+                    <button class="trade-btn view" onclick="viewChart('${stock.symbol}')">גרף</button>
+                </div>
+            </div>
+        `;
+    }
+
+    function buyStock(symbol, price) {
+        const amount = prompt(`כמה מניות של ${symbol}? (מחיר: $${price})`);
+        if (!amount || isNaN(amount) || amount <= 0) return;
+
+        const total = amount * price;
+        if (total > userData.balance) {
+            alert('❌ אין יתרה!');
+            return;
+        }
+
+        const existingPos = userData.positions.find(p => p.symbol === symbol);
+        if (existingPos) {
+            existingPos.shares += parseInt(amount);
+            existingPos.avgPrice = ((existingPos.avgPrice * (existingPos.shares - amount)) + total) / existingPos.shares;
+        } else {
+            userData.positions.push({
+                symbol, shares: parseInt(amount), buyPrice: price, avgPrice: price, buyDate: new Date().toISOString()
+            });
+        }
+
+        userData.balance -= total;
+        userData.trades.push({ type: 'buy', symbol, shares: parseInt(amount), price, date: new Date().toISOString() });
+
+        addTradingDay();
+        checkAchievements();
+        saveUserData();
+        updatePortfolioDisplay();
+        
+        alert(`✅ נקנו ${amount} מניות של ${symbol}`);
+    }
+
+    function sellStock(symbol) {
+        const position = userData.positions.find(p => p.symbol === symbol);
+        if (!position) {
+            alert('❌ אין מניות');
+            return;
+        }
+
+        const amount = prompt(`כמה למכור? (יש ${position.shares})`);
+        if (!amount || isNaN(amount) || amount <= 0 || amount > position.shares) return;
+
+        const stock = displayedStocks.find(s => s.symbol === symbol);
+        const currentPrice = stock ? stock.price : position.buyPrice * 1.02;
+        const total = amount * currentPrice;
+        const profit = (currentPrice - position.avgPrice) * amount;
+
+        userData.balance += total;
+        position.shares -= parseInt(amount);
+
+        userData.trades.push({ type: 'sell', symbol, shares: parseInt(amount), price: currentPrice, profit, date: new Date().toISOString() });
+
+        if (position.shares === 0) {
+            userData.positions = userData.positions.filter(p => p.symbol !== symbol);
+        }
+
+        checkAchievements();
+        saveUserData();
+        updatePortfolioDisplay();
+        
+        const profitText = profit >= 0 ? `רווח $${profit.toFixed(2)}` : `הפסד $${Math.abs(profit).toFixed(2)}`;
+        alert(`✅ נמכרו ${amount} מניות\n${profitText}`);
+    }
+
+    function viewChart(symbol) {
+        window.open(`https://www.tradingview.com/symbols/${symbol}`, '_blank');
+    }
+
+    function updatePortfolioDisplay() {
+        const profit = userData.balance - userData.initialBalance;
+        const profitPercent = ((profit / userData.initialBalance) * 100).toFixed(2);
+        
+        document.getElementById('portfolioBalance').textContent = `$${userData.balance.toLocaleString()}`;
+        
+        const profitLossEl = document.getElementById('profitLoss');
+        profitLossEl.textContent = `${profit >= 0 ? '+' : ''}$${profit.toLocaleString()} (${profitPercent}%)`;
+        profitLossEl.className = `profit-loss ${profit >= 0 ? 'positive' : 'negative'}`;
+
+        const winningTrades = userData.trades.filter(t => t.profit && t.profit > 0).length;
+        const totalTrades = userData.trades.length;
+        const winRate = totalTrades > 0 ? ((winningTrades / totalTrades) * 100).toFixed(0) : 0;
+
+        document.getElementById('totalTrades').textContent = totalTrades;
+        document.getElementById('winningTrades').textContent = winningTrades;
+        document.getElementById('portfolioWinRate').textContent = winRate + '%';
+
+        const posContainer = document.getElementById('positionsContainer');
+        if (userData.positions.length === 0) {
+            posContainer.innerHTML = '<div class="empty-state"><div class="empty-icon">💼</div><p>אין פוזיציות</p></div>';
+        } else {
+            posContainer.innerHTML = userData.positions.map(pos => {
+                const stock = displayedStocks.find(s => s.symbol === pos.symbol);
+                const currentPrice = stock ? stock.price : pos.avgPrice * 1.02;
+                const posProfit = (currentPrice - pos.avgPrice) * pos.shares;
+                const posPercent = ((posProfit / (pos.avgPrice * pos.shares)) * 100).toFixed(2);
+
+                return `
+                    <div class="position-card">
+                        <div class="position-header">
+                            <div>
+                                <h4 style="font-weight: 800; color: var(--primary);">${pos.symbol}</h4>
+                                <p style="font-size: 0.8em; color: var(--text-light);">${pos.shares} מניות</p>
+                            </div>
+                            <div style="text-align: left;">
+                                <div style="font-size: 1.2em; font-weight: 800;">$${currentPrice.toFixed(2)}</div>
+                                <div style="color: ${posProfit >= 0 ? 'var(--success)' : 'var(--danger)'}; font-size: 0.8em; font-weight: 700;">
+                                    ${posProfit >= 0 ? '+' : ''}$${posProfit.toFixed(2)} (${posPercent}%)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="position-details">
+                            <div class="detail-box">
+                                <span class="detail-label">קנייה</span>
+                                <span class="detail-value">$${pos.avgPrice.toFixed(2)}</span>
+                            </div>
+                            <div class="detail-box">
+                                <span class="detail-label">שווי</span>
+                                <span class="detail-value">$${(currentPrice * pos.shares).toFixed(0)}</span>
+                            </div>
+                            <div class="detail-box">
+                                <span class="detail-label">רווח</span>
+                                <span class="detail-value" style="color: ${posProfit >= 0 ? 'var(--success)' : 'var(--danger)'};">
+                                    ${posProfit >= 0 ? '+' : ''}${posPercent}%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
+    function addTradingDay() {
+        const today = new Date().toDateString();
+        if (!userData.tradingDays.includes(today)) {
+            userData.tradingDays.push(today);
+        }
+    }
+
+    function checkAchievements() {
+        const trades = userData.trades;
+        const winningTrades = trades.filter(t => t.profit && t.profit > 0);
+        const winRate = trades.length > 0 ? (winningTrades.length / trades.length) * 100 : 0;
+
+        if (trades.length >= 1 && !userData.achievements[0].unlocked) {
+            userData.achievements[0].unlocked = true;
+            userData.achievements[0].progress = 1;
+        }
+
+        userData.achievements[1].progress = Math.min(trades.length, 5);
+        if (trades.length >= 5 && !userData.achievements[1].unlocked) {
+            userData.achievements[1].unlocked = true;
+        }
+
+        const todayProfit = userData.balance - userData.initialBalance;
+        if (todayProfit > 0 && !userData.achievements[2].unlocked) {
+            userData.achievements[2].unlocked = true;
+            userData.achievements[2].progress = 1;
+        }
+
+        userData.achievements[3].progress = userData.tradingDays.length;
+        if (userData.tradingDays.length >= 7 && !userData.achievements[3].unlocked) {
+            userData.achievements[3].unlocked = true;
+        }
+
+        userData.achievements[4].progress = Math.min(trades.length, 20);
+        if (trades.length >= 20 && !userData.achievements[4].unlocked) {
+            userData.achievements[4].unlocked = true;
+        }
+
+        if (trades.length >= 20 && winRate >= 60 && userData.tradingDays.length >= 7) {
+            userData.achievements[5].progress = Math.min(100, (winRate / 60) * 100);
+            if (!userData.achievements[5].unlocked) {
+                userData.achievements[5].unlocked = true;
+                setTimeout(() => showPromotionModal(), 2000);
+            }
+        }
+
+        saveUserData();
+    }
+
+    function renderAchievements() {
+        const container = document.getElementById('achievementsContainer');
+        container.innerHTML = userData.achievements.map(ach => `
+            <div class="achievement-card ${ach.unlocked ? 'unlocked' : ''}">
+                <div class="achievement-icon">${ach.icon}</div>
+                <div class="achievement-info">
+                    <div class="achievement-title">${ach.title}</div>
+                    <div class="achievement-desc">${ach.desc}</div>
+                    ${!ach.unlocked ? `
+                        <div class="progress-bar" style="margin-top: 8px;">
+                            <div class="progress-fill" style="width: ${(ach.progress / ach.target) * 100}%"></div>
+                        </div>
+                        <div style="font-size: 0.7em; color: var(--text-light); margin-top: 4px;">${ach.progress}/${ach.target}</div>
+                    ` : '<div style="color: var(--success); margin-top: 6px; font-size: 0.8em; font-weight: 700;">✓ הושלם</div>'}
+                </div>
+            </div>
+        `).join('');
+
+        const trades = userData.trades;
+        const winningTrades = trades.filter(t => t.profit && t.profit > 0);
+        const winRate = trades.length > 0 ? (winningTrades.length / trades.length) * 100 : 0;
+        const days = userData.tradingDays.length;
+
+        const progressHTML = `
+            <div style="display: grid; gap: 10px;">
+                <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.8em;">
+                        <span>ימים</span>
+                        <span style="font-weight: 700;">${days}/7</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${Math.min((days / 7) * 100, 100)}%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.8em;">
+                        <span>הצלחה</span>
+                        <span style="font-weight: 700;">${winRate.toFixed(0)}%/60%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${Math.min((winRate / 60) * 100, 100)}%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.8em;">
+                        <span>עסקאות</span>
+                        <span style="font-weight: 700;">${trades.length}/20</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${Math.min((trades.length / 20) * 100, 100)}%"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById('progressToReal').innerHTML = progressHTML;
+    }
+
+    function showPromotionModal() {
+        const trades = userData.trades;
+        const winningTrades = trades.filter(t => t.profit && t.profit > 0);
+        const winRate = trades.length > 0 ? ((winningTrades.length / trades.length) * 100).toFixed(0) : 0;
+        const profit = userData.balance - userData.initialBalance;
+
+        document.getElementById('modalDays').textContent = userData.tradingDays.length + ' ימים';
+        document.getElementById('modalWinRate').textContent = winRate + '%';
+        document.getElementById('modalTrades').textContent = trades.length;
+        document.getElementById('modalProfit').textContent = (profit >= 0 ? '+' : '') + '$' + profit.toLocaleString();
+
+        document.getElementById('promotionModal').classList.add('active');
+    }
+
+    function closePromotion() {
+        document.getElementById('promotionModal').classList.remove('active');
+    }
+
+    function goToRealPlatform() {
+        if (confirm('בטוח? זה כרוך בסיכון אמיתי!')) {
+            switchTab('platforms');
+            closePromotion();
+        }
+    }
+
+    function updateScanStats() {
+        const buySignals = displayedStocks.filter(s => s.signal === 'buy').length;
+        document.getElementById('signalsCount').textContent = buySignals;
+        
+        const winningTrades = userData.trades.filter(t => t.profit && t.profit > 0).length;
+        const totalTrades = userData.trades.length;
+        const winRate = totalTrades > 0 ? ((winningTrades / totalTrades) * 100).toFixed(0) : 0;
+        document.getElementById('winRate').textContent = winRate + '%';
+    }
+</script>
+```
+
+</body>
+</html>
